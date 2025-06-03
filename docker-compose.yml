@@ -1,0 +1,39 @@
+version: '3.9'
+
+services:
+  spotmedia_api:
+    container_name: spotmedia_api
+    build:
+      context: /opt/spot-media
+      dockerfile: dockerfile
+    image: spotmedia-api:latest   # Cambiar por el nombre real de tu imagen si la vas a buildiar
+    depends_on:
+      - spotmedia_db
+    environment:
+      SPRING_DATASOURCE_URL: ${DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASS}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASS: ${MAIL_PASS}
+      SERVER_ADDRESS: ${SERVER_ADDRESS}
+      SERVER_PORT: ${SERVER_PORT}
+    ports:
+      - "${SERVER_ADDRESS}:${SERVER_PORT}:${SERVER_PORT}"
+
+  spotmedia_db:
+    container_name: spotmedia_db
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  db-data:
