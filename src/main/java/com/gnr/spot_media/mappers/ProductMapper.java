@@ -18,4 +18,15 @@ public class ProductMapper implements Function<Product, ProductDTO> {
                 key.getThumbnail()
         );
     }
+
+    public ProductDTO apply(Product key, boolean isMobile){
+        return new ProductDTO(
+                key.getId(),
+                key.getTitle(),
+                key.getDescription(),
+                key.getImageUrl(isMobile),
+                key.getShortTitle(),
+                key.getThumbnail()
+        );
+    }
 }

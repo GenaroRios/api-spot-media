@@ -19,6 +19,8 @@ public class Product {
 
     private String image;
 
+    private String mobileImage;
+
     private String shortTitle;
 
     private String thumbnail;
@@ -32,9 +34,10 @@ public class Product {
         this.locations = new ArrayList<>();
     }
 
-    public Product(String title, String description, String image, String shortTitle, String thumbnail, List<Location> locations) {
+    public Product(String title, String description, String image, String mobileImage, String shortTitle, String thumbnail, List<Location> locations) {
         this.description = description;
         this.image = image;
+        this.mobileImage = mobileImage;
         this.locations = locations;
         this.shortTitle = shortTitle;
         this.thumbnail = thumbnail;
@@ -60,6 +63,22 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getMobileImage() {
+        return mobileImage;
+    }
+
+    public String getImageUrl(boolean isMobile){
+        if (isMobile && getMobileImage() != null){
+            return getMobileImage();
+        } else {
+            return getImage();
+        }
+    }
+
+    public void setMobileImage(String mobile_image) {
+        this.mobileImage = mobile_image;
     }
 
     public List<Location> getLocations() {

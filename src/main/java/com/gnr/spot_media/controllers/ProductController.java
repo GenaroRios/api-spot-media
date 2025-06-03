@@ -28,12 +28,13 @@ public class ProductController {
     @GetMapping("/available-by-location")
     public ResponseEntity<List<ProductDTO>> getAvailableProductsByLocation(
             @RequestParam(required = false, name = "locationId") Long locationId,
-            @RequestParam(required = false, name = "locationName") String locationName) {
+            @RequestParam(required = false, name = "locationName") String locationName,
+            @RequestParam(name = "isMobile") boolean isMobile) {
 
         List<ProductDTO> products;
 
         if (locationId != null) {
-            products = productService.getProductsByLocationId(locationId);
+            products = productService.getProductsByLocationId(locationId, isMobile);
         } else if (locationName != null) {
             products = productService.getProductsByLocationName(locationName);
         } else {

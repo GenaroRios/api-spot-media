@@ -31,11 +31,11 @@ public class ProductService {
                 .map(productMapper);
     }
 
-    public List<ProductDTO> getProductsByLocationId(Long id)
+    public List<ProductDTO> getProductsByLocationId(Long id, boolean isMobile)
     {
         return productRepository.findByAvailableTrueAndLocations_Id(id)
                 .stream()
-                .map(productMapper)
+                .map(product -> productMapper.apply(product, isMobile))
                 .toList();
     }
 
