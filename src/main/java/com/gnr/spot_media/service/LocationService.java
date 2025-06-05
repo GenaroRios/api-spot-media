@@ -38,8 +38,8 @@ public class LocationService {
                 .toList();
     }
 
-    public Optional<LocationDTO> getLocationById(Long id){
+    public Optional<LocationDTO> getLocationById(Long id, Boolean isMobile){
         return locationRepository.findById(id)
-                .map(locationMapper);
+                .map(location -> locationMapper.apply(location, isMobile));
     }
 }

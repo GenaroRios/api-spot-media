@@ -25,6 +25,17 @@ public class LocationMapper implements Function<Location, LocationDTO> {
         );
     }
 
+    public LocationDTO apply(Location key, Boolean isMobile) {
+        return new LocationDTO(
+                key.getId(),
+                key.getName(),
+                key.getProducts()
+                        .stream()
+                        .map(product -> productMapper.apply(product, isMobile))
+                        .toList()
+        );
+    }
+
     public LocationSimpleDTO toSimpleDTO(Location key) {
         return new LocationSimpleDTO(
                 key.getId(),
